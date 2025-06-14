@@ -19,15 +19,31 @@ model User {
     id       Int    @id @default(autoincrement())
     email    String @unique
     password String
+
+    @@map("user")
 }
 
 model Company {
-    id      Int     @id @default(autoincrement())
-    name    String
-    cnpj    String  @unique
-    email   String?
-    phone   String?
-    address String
+    id       Int        @id @default(autoincrement())
+    name     String
+    cnpj     String     @unique
+    email    String?
+    phone    String?
+    address  String
+    Products Products[]
 
     @@map("company")
+}
+
+model Products {
+    id          Int     @id @default(autoincrement())
+    name        String
+    price       Decimal
+    stock       Int
+    description String?
+    sku         String  @unique
+    company     Company @relation(fields: [companyId], references: [id])
+    companyId   Int
+
+    @@map("product")
 }

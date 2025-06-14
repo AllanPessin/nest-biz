@@ -11,7 +11,6 @@ import { PrismaService } from 'src/prisma/prisma.service';
 @Injectable()
 export class CompaniesService {
   constructor(private prisma: PrismaService) {}
-  private readonly logger = new Logger(CompaniesService.name);
 
   async create(createCompanyDto: CreateCompanyDto) {
     const companyExists = await this.prisma.company.findUnique({
@@ -72,8 +71,6 @@ export class CompaniesService {
     if (!companyExists) {
       throw new NotFoundException('Empresa não existe ou não encontrada.');
     }
-
-    this.logger.log(`Empresa excluída: ${id}`);
 
     return this.prisma.company.delete({
       where: { id },
