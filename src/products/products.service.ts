@@ -1,6 +1,7 @@
 import {
   ConflictException,
   Injectable,
+  Logger,
   NotFoundException,
 } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
@@ -49,7 +50,7 @@ export class ProductsService {
     const [data, total] = await this.prisma.$transaction([
       this.prisma.products.findMany({
         skip,
-        take: limit,
+        take: Number(limit),
       }),
       this.prisma.products.count(),
     ]);
@@ -57,15 +58,44 @@ export class ProductsService {
     return { data, total, page, limit, lastPage: Math.ceil(total / limit) };
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} product`;
+  async findOne(id?: number) {
+    const productExists = await this.prisma.products.findFirst({
+      where: { id },
+    });
+
+    if (!productExists) {
+      throw new NotFoundException('Produto não existe ou não encontrada');
+    }
+
+    return productExists;
   }
 
-  update(id: number, updateProductDto: UpdateProductDto) {
-    return `This action updates a #${id} product`;
+  async update(id: number, updateProductDto: UpdateProductDto) {
+    const productExists = await this.prisma.products.findFirst({
+      where: { id },
+    });
+
+    if (!productExists) {
+      throw new NotFoundException('Produto não existe ou não encontrada');
+    }
+
+    return this.prisma.products.update({
+      where: { id },
+      data: updateProductDto,
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} product`;
+  async remove(id: number) {
+    const productExists = await this.prisma.products.findFirst({
+      where: { id },
+    });
+
+    if (!productExists) {
+      throw new NotFoundException('Produto não existe ou não encontrada');
+    }
+
+    return this.prisma.products.delete({
+      where: { id },
+    });
   }
 }
