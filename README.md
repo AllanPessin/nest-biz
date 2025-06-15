@@ -1,98 +1,187 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Nest Biz
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Projeto para gerenciar empresas e produtos, criado com Framework NestJs e o ORM (Object Relational Mapper) Prisma. Inclui as funcionalidades de autenticação e usuário utilizando JWT e o CRUD de empresas e produtos.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Funcionalidades
 
-## Description
+- Cadastro de usuário
+- Autenticação de usuário
+- Cadastro de empresa
+- Atualização de empresa
+- Exclusão de empresa
+- Listagem de empresa
+- Cadastro de produto
+- Atualização de produto
+- Exclusão de produto
+- Listagem de produto
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Rodando localmente
 
-## Project setup
+Clone o projeto
 
 ```bash
-$ npm install
+  git clone https://github.com/AllanPessin/nest-biz.git
 ```
 
-## Compile and run the project
+Entre no diretório do projeto
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+  cd nest-biz
 ```
 
-## Run tests
+Instale as dependências
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+  npm install
 ```
 
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+Inicie o servidor
 
 ```bash
-$ npm install -g mau
-$ mau deploy
+  npm run start
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+## Variáveis de Ambiente
 
-## Resources
+Para rodar esse projeto, você vai precisar adicionar as seguintes variáveis de ambiente no seu .env
 
-Check out a few resources that may come in handy when working with NestJS:
+`DATABASE_URL`
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+`JWT_SECRET`
 
-## Support
+## Documentação da API
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+#### Registra um usuário
 
-## Stay in touch
+```http
+  POST /auth/register
+```
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+| Parâmetro  | Tipo     | Descrição                                        |
+| :--------- | :------- | :----------------------------------------------- |
+| `email`    | `string` | **Obrigatório**. E-mail para cadastro de usuário |
+| `password` | `string` | **Obrigatório**. Senha para cadastro de usuário  |
 
-## License
+#### Retorna o token JWT do usuário
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+```http
+  POST /auth/login
+```
+
+| Parâmetro  | Tipo     | Descrição                              |
+| :--------- | :------- | :------------------------------------- |
+| `email`    | `string` | **Obrigatório**. E-mail para validação |
+| `password` | `string` | **Obrigatório**. Senha para validação  |
+
+#### Retorna o perfil do usuário
+
+```http
+  GET /auth/profile
+```
+
+| Parâmetro | Tipo     | Descrição                              |
+| :-------- | :------- | :------------------------------------- |
+| `email`   | `string` | **Obrigatório**. E-mail para validação |
+
+#### Cria uma empresa
+
+```http
+  POST /companies
+```
+
+| Parâmetro | Tipo     | Descrição                            |
+| :-------- | :------- | :----------------------------------- |
+| `name`    | `string` | **Obrigatório**. Nome da empresa     |
+| `cnpj`    | `string` | **Obrigatório**. CNPJ da empresa     |
+| `email`   | `string` | **Obrigatório**. E-mail da empresa   |
+| `phone`   | `string` | **Obrigatório**. Telefone da empresa |
+| `address` | `string` | **Obrigatório**. Endereço da empresa |
+
+#### Atualiza uma empresa
+
+```http
+  PATCH /companies/${id}
+```
+
+| Parâmetro | Tipo     | Descrição           |
+| :-------- | :------- | :------------------ |
+| `name`    | `string` | Nome da empresa     |
+| `cnpj`    | `string` | CNPJ da empresa     |
+| `email`   | `string` | E-mail da empresa   |
+| `phone`   | `string` | Telefone da empresa |
+| `address` | `string` | Endereço da empresa |
+
+#### Retorna todas as empresas cadastradas
+
+```http
+  GET /companies
+```
+
+#### Retorna uma empresa com base no id
+
+```http
+  GET /companies/${id}
+```
+
+#### Exclui uma empresa com base no id
+
+```http
+  DELETE /companies/${id}
+```
+
+#### Cria um produto
+
+```http
+  POST /products
+```
+
+| Parâmetro     | Tipo     | Descrição                                          |
+| :------------ | :------- | :------------------------------------------------- |
+| `name`        | `string` | **Obrigatório**. Nome do produto                   |
+| `sku`         | `string` | **Obrigatório**. Código do produto                 |
+| `price`       | `float`  | **Obrigatório**. Preço do produto                  |
+| `stock`       | `int`    | **Obrigatório**. Quantidade de estoque do produto  |
+| `description` | `string` | **Obrigatório**. Descrição do produto              |
+| `companyId`   | `int`    | **Obrigatório**. Empresa a qual o produto pertence |
+
+#### Atualiza um produto
+
+```http
+  PATCH /products/${id}
+```
+
+| Parâmetro     | Tipo     | Descrição                         |
+| :------------ | :------- | :-------------------------------- |
+| `name`        | `string` | Nome do produto                   |
+| `price`       | `float`  | Preço do produto                  |
+| `stock`       | `int`    | Quantidade de estoque do produto  |
+| `description` | `string` | Descrição do produto              |
+| `companyId`   | `int`    | Empresa a qual o produto pertence |
+
+#### Retorna todos os produto cadastrados
+
+```http
+  GET /products
+```
+
+#### Retorna um produto com base no id
+
+```http
+  GET /products/${id}
+```
+
+#### Exclui um produto com base no id
+
+```http
+  DELETE /products/${id}
+```
+
+## Referência
+
+- [NestJs](https://docs.nestjs.com/)
+- [Prisma](https://www.prisma.io/)
+- [SQLite](https://sqlite.org/)
+
+## Autores
+
+- [Allan S. Pessin](https://github.com/AllanPessin)
